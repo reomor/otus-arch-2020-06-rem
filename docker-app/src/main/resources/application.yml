@@ -1,2 +1,24 @@
 server:
   port: 8000
+
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  profiles:
+    active: prod
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    path: '/api-docs'
+  swagger-ui:
+    path: /swagger-ui.html
+    displayRequestDuration: true
+    groups-order: DESC
+  cache:
+    disabled: true
