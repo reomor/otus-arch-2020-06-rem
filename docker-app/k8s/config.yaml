@@ -4,13 +4,4 @@ metadata:
   name: app-config
 data:
   DB_USERNAME: postgres
-
----
-
-apiVersion: v1
-kind: Secret
-metadata:
-  name: app-secret
-type: Opaque
-data:
-  DB_PASSWORD: MXEydzNlNHI=
+  DB_URL: 'jdbc:postgresql://postgres:5432/docker-app'

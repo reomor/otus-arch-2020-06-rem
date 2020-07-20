@@ -31,3 +31,31 @@ Run
 ```
 kubectl apply -f .
 ```
+
+Debug
+```
+kubectl describe pod/app-deployment-7b4b97bdb7-9lwxb
+kubectl logs pod/app-deployment-7b4b97bdb7-9lwxb
+```
+
+OpenAPI
+```
+http://localhost:8000/swagger-ui.html
+http://localhost:8000/api-docs
+http://localhost:8000/api-docs.yaml
+```
+
+Helm
+
+[Postgres helm chart values.yaml](https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml)
+
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+```
+```
+helm install pg bitnami/postgresql
+helm upgrade pg bitnami/postgresql --dry-run
+helm install pg bitnami/postgresql -f values.yaml
+kubectl delete pvc data-pg-postgresql-0
+```

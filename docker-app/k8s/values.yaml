@@ -1,0 +1,10 @@
+fullnameOverride: postgres
+postgresqlUsername: postgres
+postgresqlPassword: postgres
+postgresqlDatabase: docker-app
+
+service:
+  type: NodePort
+
+persistence:
+  size: 1Gi

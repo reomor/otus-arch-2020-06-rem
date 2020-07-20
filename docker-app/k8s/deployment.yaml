@@ -14,7 +14,23 @@ spec:
     spec:
       containers:
         - name: docker-app
-          image: rimskiy/docker-app:1.0
+          image: rimskiy/docker-app:3.0
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgresql-password
           ports:
             - name: web
               containerPort: 8000

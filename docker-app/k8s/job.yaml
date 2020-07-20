@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: app-initdb
+spec:
+  template:
+    metadata:
+      name: app-initdb
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: post-init-db
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgresql-password
+          image: postgres:latest
+          command:
+            - sh
+            - "-c"
+            - |
+              psql postgresql://$DB_USERNAME:$DB_PASSWORD@postgres/docker-app << 'EOF'
+                create table users (id uuid primary key, first_name varchar(255), age int)
+                insert into users (id, first_name, age) values ('611cf830-26d9-4a85-86c6-d772f255822f', 'Otus', 3)
+              EOF
+  backoffLimit: 1
