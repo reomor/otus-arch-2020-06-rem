@@ -19,10 +19,11 @@ RESTful CRUD для Kubernetes (minikube) и Helm
 [Postman collection](https://github.com/reomor/otus-arch-2020-06-rem/tree/hw02/docker-app/postman) <br>
 run order
 ```
-helm install pg bitnami/postgresql -f values.yaml
-kubectl apply -f config.yaml
-kubectl apply -f job.yaml
-kubectl apply -f deployment.yaml -f service.yaml -f ingress.yaml
+helm install pg bitnami/postgresql -f docker-app/k8s/values.yaml
+kubectl apply -f docker-app/k8s/config.yaml
+kubectl apply -f docker-app/k8s/job.yaml
+kubectl apply -f docker-app/k8s/deployment.yaml -f docker-app/k8s/service.yaml -f docker-app/k8s/ingress.yaml
+newman run docker-app/postman/otus-arch-design.postman_collection.json
 ```
 > k8s Deployment <br>
 > k8s Service <br>

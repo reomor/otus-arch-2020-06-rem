@@ -6,397 +6,210 @@
 	},
 	"item": [
 		{
-			"name": "local",
-			"item": [
-				{
-					"name": "general",
-					"item": [
-						{
-							"name": "http://localhost:8000/version",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/version",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"version"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://localhost:8000/health",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/health",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"health"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://localhost:8000/",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8000/",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://172.17.223.162:31464/version",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://172.17.223.162:31464/version",
-									"protocol": "http",
-									"host": [
-										"172",
-										"17",
-										"223",
-										"162"
-									],
-									"port": "31464",
-									"path": [
-										"version"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://172.17.223.162:31464/health",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://172.17.223.162:31464/health",
-									"protocol": "http",
-									"host": [
-										"172",
-										"17",
-										"223",
-										"162"
-									],
-									"port": "31464",
-									"path": [
-										"health"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://172.17.223.162:31464/",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://172.17.223.162:31464/version",
-									"protocol": "http",
-									"host": [
-										"172",
-										"17",
-										"223",
-										"162"
-									],
-									"port": "31464",
-									"path": [
-										"version"
-									]
-								}
-							},
-							"response": []
-						}
+			"name": "http://{{baseUrl}}/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/health",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
 					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					"path": [
+						"health"
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			},
+			"response": []
 		},
 		{
-			"name": "prod",
-			"item": [
+			"name": "http://{{baseUrl}}/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/version",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{baseUrl}}/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{baseUrl}}/users/",
+			"event": [
 				{
-					"name": "general",
-					"item": [
-						{
-							"name": "http://arch.homework/otusapp/rem/health",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://arch.homework/otusapp/rem/health",
-									"protocol": "http",
-									"host": [
-										"arch",
-										"homework"
-									],
-									"path": [
-										"otusapp",
-										"rem",
-										"health"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://arch.homework/otusapp/rem/version",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://arch.homework/otusapp/rem/version",
-									"protocol": "http",
-									"host": [
-										"arch",
-										"homework"
-									],
-									"path": [
-										"otusapp",
-										"rem",
-										"version"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://arch.homework/otusapp/rem/",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://arch.homework/otusapp/rem/",
-									"protocol": "http",
-									"host": [
-										"arch",
-										"homework"
-									],
-									"path": [
-										"otusapp",
-										"rem",
-										""
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "users",
-					"item": [
-						{
-							"name": "http://{{baseUrl}}/users/",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "c0fb9938-a39e-48c3-8819-3d0c5d866440",
-										"exec": [
-											"var responseJSON = JSON.parse(responseBody)\r",
-											"pm.collectionVariables.set(\"userId\", responseJSON[\"id\"])\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"firstName\": \"Ololo\",\r\n    \"age\": 18\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://{{baseUrl}}/users/",
-									"protocol": "http",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://{{baseUrl}}/users/{{userId}}",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{baseUrl}}/users/{{userId}}",
-									"protocol": "http",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"{{userId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://{{baseUrl}}/users/{{userId}}",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"firstName\": \"Ololoevich\",\r\n    \"age\": 18\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://{{baseUrl}}/users/{{userId}}",
-									"protocol": "http",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"{{userId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "http://{{baseUrl}}/users/{{userId}}",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://{{baseUrl}}/users/{{userId}}",
-									"protocol": "http",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"users",
-										"{{userId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Swagger http://{{baseUrl}}/api-docs",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "7a8bca5a-3871-4858-8c9e-05c58769d41b",
-										"exec": [
-											"var responseJSON = JSON.parse(responseBody)\r",
-											"pm.collectionVariables.set(\"userId\", responseJSON[\"id\"])\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"firstName\": \"Ololo\",\r\n    \"age\": 18\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://{{baseUrl}}/api-docs",
-									"protocol": "http",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api-docs"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "df7c1e6c-21cf-4a41-8ffa-ef5fae897d03",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "98bf9b8a-b693-45e4-b6c1-8f76219598f8",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					"listen": "test",
+					"script": {
+						"id": "c0fb9938-a39e-48c3-8819-3d0c5d866440",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)\r",
+							"pm.collectionVariables.set(\"userId\", responseJSON[\"id\"])\r",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
-			"protocolProfileBehavior": {}
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Ololo\",\r\n    \"age\": 18\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/users/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{baseUrl}}/users/{{userId}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{baseUrl}}/users/{{userId}}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Ololoevich\",\r\n    \"age\": 18\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/users/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{baseUrl}}/users/{{userId}}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger http://{{baseUrl}}/api-docs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a8bca5a-3871-4858-8c9e-05c58769d41b",
+						"exec": [
+							"var responseJSON = JSON.parse(responseBody)\r",
+							"pm.collectionVariables.set(\"userId\", responseJSON[\"id\"])\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Ololo\",\r\n    \"age\": 18\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/api-docs",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api-docs"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -423,12 +236,12 @@
 	],
 	"variable": [
 		{
-			"id": "18360164-00d5-414a-8e3c-febc52ee9483",
+			"id": "635bbd76-2b74-4bb7-a88a-04eaf2a93328",
 			"key": "userId",
 			"value": null
 		},
 		{
-			"id": "2d200ca8-d10c-49fc-9905-1eafb2f2821d",
+			"id": "c6f068f1-86bf-4229-8266-41daee316464",
 			"key": "baseUrl",
 			"value": "arch.homework/otusapp/rem"
 		}
