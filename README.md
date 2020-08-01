@@ -31,3 +31,15 @@ newman run docker-app/postman/otus-arch-design.postman_collection.json
 > k8s Job <br>
 > k8s Config <br>
 > Helm <br>
+
+#### Task 03
+RESTful CRUD для Kubernetes (minikube) и Helm c Prometheus и Grafana
+#### [Репозиторий сервиса](https://github.com/reomor/otus-arch-2020-06-rem/tree/hw03/)
+```
+kubectl apply -f docker-app/helm/ingress.yaml
+helm install app-chart ./docker-app/helm/app-chart
+newman run docker-app/postman/otus-arch-design.postman_collection.json
+```
+> k8s Ingress <br>
+> Helm chart <br>
+

@@ -59,3 +59,17 @@ helm upgrade pg bitnami/postgresql --dry-run
 helm install pg bitnami/postgresql -f values.yaml
 kubectl delete pvc data-pg-postgresql-0
 ```
+
+Helm custom chart
+```
+helm create app-chart
+helm install app-chart ./app-chart --dry-run
+helm install app-chart ./app-chart
+helm delete app-chart
+```
+
+Prometheus
+```
+docker run -d -p 9090:9090 -v <path-to-prometheus.yml>:/etc/prometheus/prometheus.yml prom/prometheus
+docker run -d -p 9090:9090 -v prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+```

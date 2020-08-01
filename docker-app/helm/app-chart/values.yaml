@@ -1,0 +1,20 @@
+replicaCount: 2
+
+image:
+  repository: rimskiy/docker-app:3.0
+  pullPolicy: Always
+
+service:
+  type: NodePort
+  port: '9000'
+
+postgresql:
+  enabled: true
+  postgresqlUsername: postgres
+  postgresqlPassword: postgres
+  postgresqlDatabase: docker-app
+  service:
+    port: '5432'
+    type: NodePort
+  persistence:
+    size: 1Gi
