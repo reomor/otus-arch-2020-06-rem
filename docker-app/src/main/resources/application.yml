@@ -1,7 +1,6 @@
 server:
   port: 8000
 
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -10,6 +9,12 @@ spring:
     password: ${DB_PASSWORD}
   profiles:
     active: prod
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 springdoc:
   api-docs:

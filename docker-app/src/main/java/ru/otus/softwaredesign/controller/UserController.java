@@ -14,6 +14,7 @@ import ru.otus.softwaredesign.exception.BaseDockerAppException;
 import ru.otus.softwaredesign.persistence.dao.UserRepository;
 import ru.otus.softwaredesign.persistence.entity.User;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +23,11 @@ import java.util.UUID;
 public class UserController {
 
     private final UserRepository userRepository;
+
+    @GetMapping("/")
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
 
     @GetMapping("/{userId}")
     public User getById(@PathVariable UUID userId) {
