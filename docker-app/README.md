@@ -74,3 +74,30 @@ Prometheus
 docker run -d -p 9090:9090 -v <path-to-prometheus.yml>:/etc/prometheus/prometheus.yml prom/prometheus
 docker run -d -p 9090:9090 -v prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 ```
+
+Prometheus Operator
+```
+kubectl config set-context --current --namespace=default
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+helm repo update
+kubectl create namespace monitoring
+kubectl config set-context --current --namespace=monitoring
+helm install prom stable/prometheus-operator -f .\docker-app\infra\helm\prometheus_value.yaml --atomic
+kubectl config view --minify --output jsonpath='{..namespace}'
+
+kubectl port-forward service/prom-grafana 9000:80 
+http://localhost:9000 (admin:prom-operator)
+
+kubectl port-forward service/prom-prometheus-operator-prometheus 9090
+http://localhost:9090
+
+helm upgrade app-chart .\docker-app\helm\app-chart --dry-run
+kubectl get servicemonitor.monitoring.coreos.com -n default
+helm install nginx stable/nginx-ingress -f ./docker-app/infra/helm/nginx-ingress.yaml
+helm upgrade nginx stable/nginx-ingress -f ./docker-app/infra/helm/nginx-ingress.yaml
+```
+
+Apache Benchmark requests
+```shell script
+while true ; do ab -n 50 -c 3 http://172.17.198.19:30464/version ; sleep 3 ; done 
+```

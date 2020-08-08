@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: rimskiy/docker-app:3.0
+  repository: rimskiy/docker-app:4.0
   pullPolicy: Always
 
 service:
@@ -18,3 +18,13 @@ postgresql:
     type: NodePort
   persistence:
     size: 1Gi
+
+metrics:
+  serviceMonitor:
+    enabled: true
+
+ingress:
+  enabled: true
+  hosts:
+    - host: arch.homework
+      paths: ["/otusapp/rem"]
