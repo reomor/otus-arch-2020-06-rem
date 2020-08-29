@@ -1,0 +1,17 @@
+server:
+  port: 8001
+
+spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+  profiles:
+    active: prod
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

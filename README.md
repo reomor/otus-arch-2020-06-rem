@@ -61,3 +61,7 @@ https://www.baeldung.com/micrometer
 > Prometheus <br>
 > Grafana <br>
 
+#### Task 05
+Backend for frontends (BFF). API Gateway. <br>
+Аутентификация и регистрация пользователей.
+#### [Репозиторий сервиса](https://github.com/reomor/otus-arch-2020-06-rem/tree/hw05/)

@@ -22,6 +22,7 @@
 
     <modules>
         <module>docker-app</module>
+        <module>docker-app-auth</module>
     </modules>
 
 </project>
