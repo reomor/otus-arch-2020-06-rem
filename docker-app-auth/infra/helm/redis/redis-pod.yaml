@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: redis
+  labels:
+    app: redis
 spec:
   containers:
     - name: redis
@@ -27,7 +29,7 @@ spec:
       emptyDir: {}
     - name: config
       configMap:
-        name: example-redis-config
+        name: redis-config
         items:
           - key: redis-config
             path: redis.conf

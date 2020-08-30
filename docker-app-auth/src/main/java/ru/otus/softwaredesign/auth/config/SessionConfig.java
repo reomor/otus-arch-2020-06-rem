@@ -1,7 +1,10 @@
 package ru.otus.softwaredesign.auth.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,9 +18,14 @@ import org.springframework.session.web.http.HttpSessionIdResolver;
 @EnableRedisHttpSession
 public class SessionConfig extends AbstractHttpSessionApplicationInitializer {
 
+    @Value("${spring.redis.host:null}")
+    private String redisHost;
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost, 6379);
+        redisStandaloneConfiguration.setPassword(RedisPassword.none());
+        return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
     @Bean
