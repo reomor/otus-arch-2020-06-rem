@@ -11,6 +11,7 @@ import ru.otus.softwaredesign.auth.persistence.dao.UserRepository;
 import ru.otus.softwaredesign.auth.persistence.entity.User;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +37,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isAuthenticated(HttpSession httpSession) {
         return redisSessionRepository.findById(httpSession.getId()) != null;
+    }
+
+    @Override
+    public Optional<User> findByUserName(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override

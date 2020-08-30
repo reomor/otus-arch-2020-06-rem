@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import ru.otus.softwaredesign.auth.exception.UserExistsException;
 import ru.otus.softwaredesign.auth.persistence.entity.User;
 import ru.otus.softwaredesign.auth.service.UserService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Slf4j
@@ -41,12 +44,18 @@ public class LoginController {
 
     @GetMapping("/signin")
     public ResponseEntity<SignInResponse> signIn() {
-        return new ResponseEntity<>( new SignInResponse("Please login with basic authentification credentials"), HttpStatus.OK);
+        return new ResponseEntity<>(new SignInResponse("Please login with basic authentification credentials"), HttpStatus.OK);
     }
 
     @GetMapping("/login")
-    public ResponseEntity<LoginResponse> login(HttpSession httpSession) {
-        return ResponseEntity.ok(new LoginResponse(httpSession.getId()));
+    public ResponseEntity<LoginResponse> login(HttpSession httpSession, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return userService.findByUserName(
+            ((org.springframework.security.core.userdetails.User) authentication.getPrincipal()).getUsername()
+        ).map(user -> {
+            response.setHeader("X-User-Id", user.getId().toString());
+            return ResponseEntity.ok(new LoginResponse(httpSession.getId(), user.getId()));
+        }).orElseGet(() -> ResponseEntity.ok(new LoginResponse(httpSession.getId(), null)));
     }
 
     @GetMapping("/auth")
