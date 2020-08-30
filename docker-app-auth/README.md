@@ -11,3 +11,5 @@ docker login
 docker tag f342a3c05940 rimskiy/docker-app-auth:1.0
 docker push rimskiy/docker-app-auth:1.0
 ```
+
+https://kubernetes.io/docs/tutorials/configuration/configure-redis-using-configmap/

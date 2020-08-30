@@ -1,14 +1,15 @@
 server:
-  port: 8001
+  port: 9000
 
 spring:
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: ${DB_URL}
-#    username: ${DB_USERNAME}
-#    password: ${DB_PASSWORD}
   profiles:
     active: prod
+  redis:
+    host: ${REDIS_URL}
+  session:
+    store-type: redis
+#  security:
+#    sessions: NEVER
 
 logging:
   level:
