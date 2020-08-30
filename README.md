@@ -65,3 +65,11 @@ https://www.baeldung.com/micrometer
 Backend for frontends (BFF). API Gateway. <br>
 Аутентификация и регистрация пользователей.
 #### [Репозиторий сервиса](https://github.com/reomor/otus-arch-2020-06-rem/tree/hw05/)
+
+```
+helm install app-chart ./docker-app/helm/app-chart --atomic
+kubectl apply -k ./docker-app-auth/infra/helm/redis
+kubectl apply -f ./docker-app-auth/k8s
+kubectl apply -f ./docker-app-auth/infra/auth-ingress.yaml
+helm install nginx stable/nginx-ingress -f ./docker-app/infra/helm/nginx-ingress.yaml
+```

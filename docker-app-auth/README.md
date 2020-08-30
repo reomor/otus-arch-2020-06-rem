@@ -19,3 +19,9 @@ kubectl exec -it redis -- redis-cli
 CONFIG GET maxmemory
 CONFIG GET maxmemory-policy
 ```
+
+```
+helm delete app-chart
+kubectl delete -f ./docker-app-auth/k8s
+kubectl delete -k ./docker-app-auth/infra/helm/redis
+```

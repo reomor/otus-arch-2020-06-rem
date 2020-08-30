@@ -101,3 +101,6 @@ Apache Benchmark requests
 ```shell script
 while true ; do ab -n 50 -c 3 http://172.17.198.19:30464/version ; sleep 3 ; done 
 ```
+
+https://kubernetes.github.io/ingress-nginx/troubleshooting/
+

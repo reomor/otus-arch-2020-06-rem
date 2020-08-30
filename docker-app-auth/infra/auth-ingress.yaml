@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: auth-proxy
+spec:
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /register
+            backend:
+              serviceName: app-auth-service
+              servicePort: 9000
+          - path: /signin
+            backend:
+              serviceName: app-auth-service
+              servicePort: 9000
+          - path: /login
+            backend:
+              serviceName: app-auth-service
+              servicePort: 9000
+          - path: /auth
+            backend:
+              serviceName: app-auth-service
+              servicePort: 9000
+          - path: /token
+            backend:
+              serviceName: app-auth-service
+              servicePort: 9000

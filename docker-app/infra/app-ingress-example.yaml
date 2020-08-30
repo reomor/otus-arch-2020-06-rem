@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: app-proxy
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "http://app-auth-service.default.svc.cluster.local:9000/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "http://$host/signin"
+    nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Token"
+spec:
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - backend:
+              serviceName: app-chart
+              servicePort: 9000
+            path: /users/me

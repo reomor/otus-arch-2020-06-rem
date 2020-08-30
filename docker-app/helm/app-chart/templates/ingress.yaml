@@ -12,6 +12,9 @@ metadata:
   labels:
     {{- include "app-chart.labels" . | nindent 4 }}
   annotations:
+    nginx.ingress.kubernetes.io/auth-url: "http://app-auth-service.default.svc.cluster.local:9000/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "http://$host/signin"
+    nginx.ingress.kubernetes.io/auth-response-headers: "X-Auth-Token"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
