@@ -23,6 +23,14 @@ public class User {
     @GeneratedValue
     private UUID id;
 
+    @Schema(description = "Login username", example = "nagibator2010")
+    @Column
+    private String username;
+
+    @Schema(description = "Login password", example = "***")
+    @Column
+    private String password;
+
     @Schema(description = "First name", example = "Otus")
     @Column
     private String firstName;
