@@ -1,43 +1,51 @@
 package ru.otus.softwaredesign.auth.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Service;
+import ru.otus.softwaredesign.auth.exception.UserExistsException;
+import ru.otus.softwaredesign.auth.persistence.dao.UserRepository;
+import ru.otus.softwaredesign.auth.persistence.entity.User;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.servlet.http.HttpSession;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
 
-    private Map<String, UserDetails> users = new ConcurrentHashMap<>();
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final SessionRepository redisSessionRepository;
 
-    @Autowired
-    public UserServiceImpl(PasswordEncoder passwordEncoder) {
+    @Override
+    public User register(User user) {
+        User userForRegistration = new User();
+        userForRegistration.setUsername(user.getUsername());
+        userForRegistration.setPassword(passwordEncoder.encode(user.getPassword()));
+        userForRegistration.setFirstName(user.getFirstName());
+        userForRegistration.setAge(user.getAge());
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new UserExistsException("User already exists");
+        }
+        return userRepository.save(userForRegistration);
+    }
 
-        UserDetails user = User.withUsername("user")
-            .password(passwordEncoder.encode("user"))
-            .roles("USER")
-            .build();
-
-        UserDetails admin = User.withUsername("admin")
-            .password(passwordEncoder.encode("admin"))
-            .roles("ADMIN")
-            .build();
-
-        users.put("user", user);
-        users.put("admin", admin);
+    @Override
+    public boolean isAuthenticated(HttpSession httpSession) {
+        return redisSessionRepository.findById(httpSession.getId()) != null;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (users.containsKey(username)) {
-            return users.get(username);
-        }
-        throw new UsernameNotFoundException("User not found");
+        return userRepository.findByUsername(username)
+            .map(user -> org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .roles("USER")
+                .build())
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

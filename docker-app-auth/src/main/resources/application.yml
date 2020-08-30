@@ -4,12 +4,30 @@ server:
 spring:
   profiles:
     active: prod
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   redis:
     host: ${REDIS_URL}
   session:
     store-type: redis
-#  security:
-#    sessions: NEVER
+
+security:
+  sessions: NEVER
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    path: '/api-docs'
+  swagger-ui:
+    path: /swagger-ui.html
+    displayRequestDuration: true
+    groups-order: DESC
+  cache:
+    disabled: true
 
 logging:
   level:

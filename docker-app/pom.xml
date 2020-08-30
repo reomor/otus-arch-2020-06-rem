@@ -13,10 +13,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <spring-doc.version>1.4.3</spring-doc.version>
-    </properties>
-
     <dependencies>
 
         <dependency>

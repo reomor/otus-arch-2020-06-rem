@@ -18,6 +18,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <spring-doc.version>1.4.3</spring-doc.version>
     </properties>
 
     <modules>
