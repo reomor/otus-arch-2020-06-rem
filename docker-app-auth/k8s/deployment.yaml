@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-app-auth
+  template:
+    metadata:
+      labels:
+        app: docker-app-auth
+    spec:
+      containers:
+        - name: docker-app-auth
+          image: rimskiy/docker-app-auth:1.0
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-auth-config
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-auth-config
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: app-auth-config
+                  key: DB_PASSWORD
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-auth-config
+                  key: REDIS_URL
+          ports:
+            - name: web
+              containerPort: 9000
+          imagePullPolicy: Always
+      restartPolicy: Always
