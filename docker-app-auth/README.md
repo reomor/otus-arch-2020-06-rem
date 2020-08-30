@@ -2,7 +2,7 @@ Create image
 ```
 docker build --build-arg JAR_FILE=target/*.jar -t otus/docker-app-auth:1.0 .
 docker build -t otus/docker-app-auth:1.0 .
-docker run --rm -p 8001:8001 otus/docker-app-auth:1.0
+docker run --rm -p 9000:9000 otus/docker-app-auth:1.0
 ```
 
 DockerHub <br>
@@ -12,4 +12,10 @@ docker tag f342a3c05940 rimskiy/docker-app-auth:1.0
 docker push rimskiy/docker-app-auth:1.0
 ```
 
-https://kubernetes.io/docs/tutorials/configuration/configure-redis-using-configmap/
+[Redis in k8s](https://kubernetes.io/docs/tutorials/configuration/configure-redis-using-configmap/)
+```
+kubectl apply -k .\docker-app-auth\infra\helm\.
+kubectl exec -it redis -- redis-cli
+CONFIG GET maxmemory
+CONFIG GET maxmemory-policy
+```
