@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: docker-app-auth
-          image: rimskiy/docker-app-auth:1.0
+          image: rimskiy/docker-app-auth:2.0
           env:
             - name: DB_URL
               valueFrom:

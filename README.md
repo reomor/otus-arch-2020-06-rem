@@ -71,5 +71,8 @@ helm install app-chart ./docker-app/helm/app-chart --atomic
 kubectl apply -k ./docker-app-auth/infra/helm/redis
 kubectl apply -f ./docker-app-auth/k8s
 kubectl apply -f ./docker-app-auth/infra/auth-ingress.yaml
-helm install nginx stable/nginx-ingress -f ./docker-app/infra/helm/nginx-ingress.yaml
+helm install nginx stable/nginx-ingress -f ./docker-app/infra/helm/nginx-ingress.yaml --atomic
+newman run docker-app-auth/postman/otus-arch-design-auth.postman_collection.json
 ```
+
+![Arch](./docs/ingress-auth-app.png)

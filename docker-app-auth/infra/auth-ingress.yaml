@@ -27,3 +27,7 @@ spec:
             backend:
               serviceName: app-auth-service
               servicePort: 9000
+          - path: /logout
+            backend:
+              serviceName: app-auth-service
+              servicePort: 9000

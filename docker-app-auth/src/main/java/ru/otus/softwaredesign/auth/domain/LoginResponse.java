@@ -6,6 +6,6 @@ import java.util.UUID;
 
 @Value
 public class LoginResponse {
-    private String token;
-    private UUID userId;
+    String token;
+    UUID userId;
 }

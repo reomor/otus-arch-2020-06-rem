@@ -29,10 +29,6 @@ public class LoginController {
 
     private final UserService userService;
 
-    public ResponseEntity<String> getAll(HttpSession httpSession) {
-        return ResponseEntity.ok(httpSession.getId());
-    }
-
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         try {
@@ -48,20 +44,26 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<LoginResponse> login(HttpSession httpSession, HttpServletResponse response) {
+    public ResponseEntity<LoginResponse> login(HttpSession httpSession) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.findByUserName(
             ((org.springframework.security.core.userdetails.User) authentication.getPrincipal()).getUsername()
-        ).map(user -> {
-            response.setHeader("X-User-Id", user.getId().toString());
-            return ResponseEntity.ok(new LoginResponse(httpSession.getId(), user.getId()));
-        }).orElseGet(() -> ResponseEntity.ok(new LoginResponse(httpSession.getId(), null)));
+        ).map(user -> ResponseEntity.ok(new LoginResponse(httpSession.getId(), user.getId())))
+            .orElseGet(() -> new ResponseEntity<>(
+                new LoginResponse(httpSession.getId(), null),
+                HttpStatus.NOT_ACCEPTABLE)
+            );
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<LoginResponse> auth(HttpSession httpSession) {
+    public ResponseEntity<LoginResponse> auth(HttpSession httpSession, HttpServletResponse response) {
         if (userService.isAuthenticated(httpSession)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return userService.findByUserName(
+                ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()
+            ).map(user -> {
+                response.setHeader("X-User-Id", user.getId().toString());
+                return ResponseEntity.ok(new LoginResponse(httpSession.getId(), user.getId()));
+            }).orElseGet(() -> ResponseEntity.ok(new LoginResponse(httpSession.getId(), null)));
         }
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
