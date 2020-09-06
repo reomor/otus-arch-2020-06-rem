@@ -4,17 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.otus.softwaredesign.exception.BaseDockerAppException;
 import ru.otus.softwaredesign.persistence.dao.UserRepository;
 import ru.otus.softwaredesign.persistence.entity.User;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -22,26 +20,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController {
 
+    private static final String USER_ID_HEADER = "X-User-Id";
+
     private final UserRepository userRepository;
 
-    @GetMapping("/")
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
-
-    @GetMapping("/{userId}")
-    public User getById(@PathVariable UUID userId) {
+    @GetMapping
+    public User getById(@RequestHeader(USER_ID_HEADER) UUID userId) {
         return userRepository.findById(userId)
             .orElseThrow(BaseDockerAppException::new);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User post(@RequestBody User user) {
-        return userRepository.save(user);
-    }
-
-    @PutMapping(value = "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User put(@PathVariable UUID userId, @RequestBody User user) {
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public User put(@RequestHeader(USER_ID_HEADER) UUID userId, @RequestBody User user) {
         return userRepository.findById(userId)
             .map(updatedUser -> {
                 updatedUser.setFirstName(user.getFirstName());
@@ -50,8 +40,8 @@ public class UserController {
             }).orElseThrow(BaseDockerAppException::new);
     }
 
-    @DeleteMapping("/{userId}")
-    public void delete(@PathVariable UUID userId) {
+    @DeleteMapping
+    public void delete(@RequestHeader(USER_ID_HEADER) UUID userId) {
         userRepository.deleteById(userId);
     }
 }

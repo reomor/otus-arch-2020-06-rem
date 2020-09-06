@@ -25,7 +25,7 @@ public class AppController {
     @GetMapping("/version")
     public ResponseEntity<VersionResponse> version() {
         return ResponseEntity.ok(
-            new VersionResponse("0.5")
+            new VersionResponse("0.6")
         );
     }
 
