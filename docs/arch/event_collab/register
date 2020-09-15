@@ -1,0 +1,14 @@
+sequenceDiagram
+
+participant User
+participant UserService
+participant MessageBroker
+participant BillingService
+
+User->>UserService: register
+activate UserService
+UserService->>MessageBroker: produce UserCreated
+UserService->>User: 200 OK
+deactivate UserService
+MessageBroker-->BillingService: consume UserCreated
+Note right of BillingService: create billing account

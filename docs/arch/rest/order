@@ -1,0 +1,17 @@
+sequenceDiagram
+
+participant User
+participant OrderService
+participant BillingService
+participant NotificationService
+
+User->>OrderService: POST /orders
+activate OrderService
+OrderService->>BillingService: POST /billings
+activate BillingService
+Note left of BillingService: write off money
+BillingService->>NotificationService: send notification of write off
+BillingService->>OrderService: 202 ACCEPTED/400 BAD REQUEST
+deactivate BillingService
+OrderService->>User: 201 CREATED/400 BAD REQUEST
+deactivate OrderService

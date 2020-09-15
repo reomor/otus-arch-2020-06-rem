@@ -1,0 +1,14 @@
+sequenceDiagram
+
+participant User
+participant UserService
+participant BillingService
+
+User->>UserService: register
+activate UserService
+UserService->>BillingService: create account
+activate BillingService
+BillingService->>UserService: 201 CREATED
+deactivate BillingService
+UserService->>User: 200
+deactivate UserService

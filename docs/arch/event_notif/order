@@ -1,0 +1,44 @@
+sequenceDiagram
+
+participant User
+participant OrderService
+participant MessageBroker
+participant BillingService
+participant UserService
+participant NotificationService
+
+User->>OrderService: POST /orders
+activate OrderService
+OrderService->>MessageBroker: produce OrderCreatedNf
+OrderService->>User: 200 OK
+deactivate OrderService
+MessageBroker-->BillingService: consume OrderCreatedNf
+activate BillingService
+BillingService->>OrderService: GET /orders/{orderId}
+OrderService->>BillingService: 200 OK ORDER
+Note left of BillingService: write off money
+BillingService->>MessageBroker: produce BillingProcessedNf
+deactivate BillingService
+MessageBroker-->NotificationService: consume BillingProcessedNf
+activate NotificationService
+par Get billing result
+NotificationService->>BillingService: GET /billings/{billId}
+activate BillingService
+and Get User info
+NotificationService->>UserService: GET /users/{userId}
+activate UserService
+end
+BillingService->>NotificationService: 200 OK BILLING
+deactivate BillingService
+UserService->>NotificationService: 200 OK USER
+deactivate UserService
+deactivate NotificationService
+Note left of NotificationService: send notification
+MessageBroker-->OrderService: consume BillingProcessedNf
+activate OrderService
+OrderService->>BillingService: GET /billings/{billId}
+activate BillingService
+BillingService->>OrderService: 200 OK BILLING
+deactivate BillingService
+deactivate OrderService
+Note right of OrderService: change order status

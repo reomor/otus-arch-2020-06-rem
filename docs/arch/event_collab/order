@@ -1,0 +1,22 @@
+sequenceDiagram
+
+participant User
+participant OrderService
+participant MessageBroker
+participant BillingService
+participant NotificationService
+
+User->>OrderService: POST /orders
+activate OrderService
+OrderService->>MessageBroker: produce OrderCreated
+OrderService->>User: 200 OK
+deactivate OrderService
+MessageBroker-->BillingService: consume OrderCreated
+activate BillingService
+Note left of BillingService: write off money
+BillingService->>MessageBroker: produce BillingProcessed
+deactivate BillingService
+MessageBroker-->NotificationService: consume BillingProcessed
+Note left of NotificationService: send notification
+MessageBroker-->OrderService: consume BillingProcessed
+Note right of OrderService: change order status
