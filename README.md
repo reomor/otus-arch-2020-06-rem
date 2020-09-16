@@ -76,3 +76,26 @@ newman run docker-app-auth/postman/otus-arch-design-auth.postman_collection.json
 ```
 
 ![Arch](./docs/ingress-auth-app.png)
+
+#### Task 06
+Stream processing.<br>
+Реализовать сервис заказа. Сервис биллинга. Сервис нотификаций.
+#### [Репозиторий сервиса](https://github.com/reomor/otus-arch-2020-06-rem/tree/hw06/)
+
+##### Rest
+Scenario: register
+![register](./docs/arch/rest/rest-register.png)
+Scenario: order
+![order](./docs/arch/rest/rest-order.png)
+
+##### Event Collaboration
+Scenario: register
+![register](./docs/arch/event_collab/event-collab-register.png)
+Scenario: order
+![order](./docs/arch/event_collab/event-collab-order.png)
+
+##### Event Notification
+Scenario: register
+![register](./docs/arch/event_notif/event-notif-register.png)
+Scenario: order
+![order](./docs/arch/event_notif/event-notif-order.png)
