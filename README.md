@@ -82,19 +82,23 @@ Stream processing.<br>
 Реализовать сервис заказа. Сервис биллинга. Сервис нотификаций.
 #### [Репозиторий сервиса](https://github.com/reomor/otus-arch-2020-06-rem/tree/hw06/)
 
-##### Rest
+- [OpenAPI](https://editor.swagger.io/)
+- [AsyncAPI](https://playground.asyncapi.io/)
+- [Sequence diagram](https://mermaid-js.github.io/mermaid-live-editor/)
+
+##### [Rest](docs/arch/rest/rest-api.yml)
 Scenario: register
 ![register](./docs/arch/rest/rest-register.png)
 Scenario: order
 ![order](./docs/arch/rest/rest-order.png)
 
-##### Event Collaboration
+##### [Event Collaboration](./docs/arch/event_collab/asyncapi.yml)
 Scenario: register
 ![register](./docs/arch/event_collab/event-collab-register.png)
 Scenario: order
 ![order](./docs/arch/event_collab/event-collab-order.png)
 
-##### Event Notification
+##### [Event Notification](./docs/arch/event_notif/asyncapi.yml)
 Scenario: register
 ![register](./docs/arch/event_notif/event-notif-register.png)
 Scenario: order

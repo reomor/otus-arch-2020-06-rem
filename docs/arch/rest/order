@@ -10,7 +10,10 @@ activate OrderService
 OrderService->>BillingService: POST /billings
 activate BillingService
 Note left of BillingService: write off money
-BillingService->>NotificationService: send notification of write off
+BillingService->>NotificationService: POST /notification
+activate NotificationService
+NotificationService->>BillingService: 200 OK
+deactivate NotificationService
 BillingService->>OrderService: 202 ACCEPTED/400 BAD REQUEST
 deactivate BillingService
 OrderService->>User: 201 CREATED/400 BAD REQUEST

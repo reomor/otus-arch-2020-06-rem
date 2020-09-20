@@ -4,9 +4,9 @@ participant User
 participant UserService
 participant BillingService
 
-User->>UserService: register
+User->>UserService: POST /register
 activate UserService
-UserService->>BillingService: create account
+UserService->>BillingService: POST /accounts
 activate BillingService
 BillingService->>UserService: 201 CREATED
 deactivate BillingService

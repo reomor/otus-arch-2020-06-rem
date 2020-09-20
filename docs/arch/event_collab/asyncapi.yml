@@ -1,0 +1,113 @@
+asyncapi: '2.0.0'
+info:
+  title: Регистрация пользователя и создание заказа
+  version: 0.1.0
+defaultContentType: application/json
+
+channels:
+  UserService/UserCreated:
+    publish:
+      message:
+        name: User created
+        description: "Событие: пользователь зарегистрировался"
+        payload:
+          type: object
+          additionalProperties: false
+          properties:
+            userId:
+              type: string
+              format: uuid
+            username:
+              type: string
+            email:
+              type: string
+              format: email
+          required:
+            - userId
+            - username
+            - email
+        examples:
+          - payload:
+              userId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              username: username
+              email: mail@mail.ru
+  OrderService/OrderCreated:
+    publish:
+      message:
+        name: Order created
+        description: "Событие: заказ создан"
+        payload:
+          type: object
+          additionalProperties: false
+          properties:
+            userId:
+              type: string
+              format: uuid
+            orderId:
+              type: string
+              format: uuid
+            amount:
+              type: integer
+              format: int32
+            email:
+              type: string
+              format: email
+          required:
+            - userId
+            - orderId
+            - amount
+            - email
+        examples:
+          - payload:
+              userId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              orderId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              amount: 10000
+              email: mail@mail.ru
+  BillingService/BillingProcessed:
+    publish:
+      message:
+        name: Billing processed
+        description: "Событие: биллинг завершен"
+        payload:
+          type: object
+          additionalProperties: false
+          properties:
+            userId:
+              type: string
+              format: uuid
+            orderId:
+              type: string
+              format: uuid
+            billingId:
+              type: string
+              format: uuid
+            status:
+              type: string
+              $ref: '#/components/schemas/BillingStatus'
+            email:
+              type: string
+              format: email
+          required:
+            - userId
+            - orderId
+            - billingId
+            - status
+            - email
+        examples:
+          - payload:
+              userId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              orderId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              billingId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+              status: SUCCEED
+              email: mail@mail.ru
+
+components:
+  schemas:
+    BillingStatus:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - SUCCEED
+            - FAILED

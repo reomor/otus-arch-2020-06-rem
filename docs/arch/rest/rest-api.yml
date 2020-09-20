@@ -1,0 +1,208 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "Swagger Docker-App"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "developer@developer.ru"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "app.swagger.io"
+basePath: "/v1"
+tags:
+  - name: "users"
+    description: "Users service"
+  - name: "orders"
+    description: "Order service"
+  - name: "billings"
+    description: "Billing service"
+  - name: "notification"
+    description: "Notification service"
+schemes:
+  - "http"
+paths:
+  /register:
+    post:
+      tags:
+        - "users"
+      summary: "Register new user"
+      description: ""
+      operationId: "registerUser"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User information"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "OK"
+  /orders:
+    post:
+      tags:
+        - "orders"
+      summary: "Creates new order"
+      description: ""
+      operationId: "postOrder"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Order information"
+          required: true
+          schema:
+            $ref: "#/definitions/Order"
+      responses:
+        "201":
+          description: "Order created"
+          schema:
+            $ref: '#/definitions/Order'
+        "400":
+          description: "Order already exist"
+  /accounts:
+    post:
+      tags:
+        - "billings"
+      summary: "Creates new account if not exist"
+      description: ""
+      operationId: "createAccount"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User information"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "201":
+          description: "Account created"
+          schema:
+            $ref: '#/definitions/Account'
+        "400":
+          description: "Account already exist"
+  /billings:
+    post:
+      tags:
+        - "billings"
+      summary: "Creates new billing for order"
+      description: ""
+      operationId: "createBilling"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: " information"
+          required: true
+          schema:
+            $ref: "#/definitions/Order"
+      responses:
+        "202":
+          description: "Order for billing accepted"
+          schema:
+            $ref: '#/definitions/Billing'
+        "400":
+          description: "Bad parameters"
+  /notification:
+    post:
+      tags:
+        - "notification"
+      summary: "Creates new notification"
+      description: ""
+      operationId: "createNotification"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: " information"
+          required: true
+          schema:
+            $ref: "#/definitions/Billing"
+      responses:
+        "200":
+          description: "Request is accepted"
+
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      username:
+        type: "string"
+        example: "ivan3000"
+      password:
+        type: "string"
+        example: "pass"
+      firstName:
+        type: "string"
+        example: "Ivan"
+      age:
+        type: "integer"
+        format: "int64"
+        example: 12
+    xml:
+      name: "User"
+  Account:
+    type: "object"
+    properties:
+      accountId:
+        type: "string"
+        format: "uuid"
+  Order:
+    type: "object"
+    properties:
+      orderId:
+        type: "string"
+        format: "uuid"
+      userId:
+        type: "string"
+        format: "uuid"
+      amount:
+        type: "integer"
+        format: "int32"
+      createDate:
+        type: "string"
+        format: "date-time"
+    xml:
+      name: "Order"
+  Billing:
+    type: "object"
+    properties:
+      orderId:
+        type: "string"
+        format: "uuid"
+      userId:
+        type: "string"
+        format: "uuid"
+      billingId:
+        type: "string"
+        format: "uuid"
+      status:
+        type: "string"
+        description: "Billing status"
+        enum:
+          - "SUCCEED"
+          - "FAILED"
+    xml:
+      name: "Billing"

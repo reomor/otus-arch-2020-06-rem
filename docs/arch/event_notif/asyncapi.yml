@@ -1,0 +1,41 @@
+asyncapi: '2.0.0'
+info:
+  title: Регистрация пользователя
+  version: 0.1.0
+defaultContentType: application/json
+
+channels:
+  OrderService/OrderCreatedNf:
+    publish:
+      message:
+        name: Order created notification
+        description: "Событие: уведомление о сделанном заказе"
+        payload:
+          type: object
+          additionalProperties: false
+          properties:
+            orderId:
+              type: string
+              format: uuid
+          required:
+            - orderId
+        examples:
+          - payload:
+              orderId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+  BillingService/BillingProcessedNf:
+    publish:
+      message:
+        name: Billing processing complete notification
+        description: "Событие: уведомление о завершенном биллинге"
+        payload:
+          type: object
+          additionalProperties: false
+          properties:
+            billigId:
+              type: string
+              format: uuid
+          required:
+            - billigId
+        examples:
+          - payload:
+              billigId: 497f6eca-6276-4993-bfeb-53cbbbba6f08
